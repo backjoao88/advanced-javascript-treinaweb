@@ -1,0 +1,42 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+  <table id="table">
+
+  </table>
+  <style>
+    table,
+    tr,
+    td {
+      border: 1px solid;
+    }
+
+    td {
+      width: 60px;
+      height: 60px;
+      text-align: center;
+    }
+  </style>
+  <script type="module">
+
+    import KeyboardListener from './keyboard-listener.js';
+    import { Table, Player, Character } from './app.js';
+
+    const keyboardListener = KeyboardListener(document);
+    const table = new Table(8, 8, "#table");
+
+
+    table.createFields();
+
+    const player = new Player(table);
+    keyboardListener.subscribe(player);
+
+
+  </script>
+</body>
+
+</html>
