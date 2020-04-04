@@ -15,7 +15,8 @@ export default function KeyboardListener(document){
     });
   }
 
-  document.addEventListener('keydown', handleKeydown)
+  document.addEventListener('keydown', handleKeydown);
+  
   function handleKeydown(event){
     notifyAll(event.key);
   }

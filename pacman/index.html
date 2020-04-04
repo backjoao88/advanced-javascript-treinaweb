@@ -5,8 +5,8 @@
 </head>
 
 <body>
+  <h1>Score: <output id="score"></output></h1>
   <table id="table">
-
   </table>
   <style>
     table,
@@ -24,13 +24,14 @@
   <script type="module">
 
     import KeyboardListener from './keyboard-listener.js';
-    import { Table, Player, Character } from './app.js';
+    import { Table, Player, Character, Npc } from './app.js';
 
     const keyboardListener = KeyboardListener(document);
     const table = new Table(8, 8, "#table");
 
-
     table.createFields();
+
+    const npc = new Npc(table);
 
     const player = new Player(table);
     keyboardListener.subscribe(player);

@@ -54,7 +54,7 @@ export class Character{
   }
 
   down(){
-    if(this.x + 1 > this.table.rows){
+    if(this.x >= this.table.rows - 1){
       return;
     }
     this.setPosition(this.x + 1, this.y);
@@ -68,20 +68,29 @@ export class Character{
   }
 
   right(){
-    if(this.y + 1 > this.table.cols){
+    if(this.y >= this.table.cols - 1){
       return;
     }
     this.setPosition(this.x, this.y + 1);
   }
 
   moveCharacter(move){
-    switch(move){
-      case "ArrowUp": console.log("Moving Up");this.up(); break;
-      case "ArrowDown": console.log("Moving Down");this.down(); break;
-      case "ArrowLeft": console.log("Moving Left");this.left(); break;
-      case "ArrowRight": console.log("Moving Right"); this.right(); break;
-      default: console.log("Nothing happens."); break;
+    const acceptedMoves = {
+      ArrowUp(){
+        this.up();
+      },
+      ArrowDown() {
+        this.down();
+      },
+      ArrowLeft(){
+        this.left();
+      },
+      ArrowRight(){
+        this.right();
+      }
     }
+    const moveFunction = acceptedMoves[move];
+    moveFunction.apply(this, []);
   }
 
   setPosition(x, y){
@@ -101,6 +110,22 @@ export class Player extends Character{
   constructor(table){
     super(table, 0, 0, '*-*');
   }
+}
+
+export class Npc extends Character{
+  constructor(field){
+    const x = Math.trunc(Math.random() * field.rows);
+    const y = Math.trunc(Math.random() * field.cols);   
+    super(field, x, y, "0-0");
+    setInterval(this.walkRandomly.bind(this), 500);
+  }
+
+  walkRandomly(){
+    const acceptedMoves = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+    const direction = Math.trunc(Math.random() * 4);
+    this.moveCharacter(acceptedMoves[direction]);
+  }
+
 }
 
 
